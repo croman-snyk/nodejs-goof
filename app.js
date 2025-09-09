@@ -5,6 +5,7 @@
 // mongoose setup
 require('./mongoose-db');
 require('./typeorm-db')
+console.log("hi there")
 
 var st = require('st');
 var crypto = require('crypto');
