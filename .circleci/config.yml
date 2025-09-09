@@ -1,14 +1,21 @@
 version: '2.1'
 orbs:
   snyk: snyk/snyk@2.3.0
+
 jobs:
-  build:
+  snyk-scan:
     docker:
       - image: cimg/node:lts
     steps:
       - checkout
       - run: npm ci
-      - snyk/scan:
+      - snyk/scan
+
+workflows:
+  build-test-snyk:
+    jobs:
+      - snyk-scan:
           fail-on-issues: false
-          severity-threshold: high
-workflows: null
+          monitor-on-build: true
+          # severity-threshold: high
+
