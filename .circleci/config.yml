@@ -1,0 +1,50 @@
+# version: '2.1'
+# orbs:
+#   snyk: snyk/snyk@2.3.0
+#
+# jobs:
+#   snyk-scan:
+#     docker:
+#       - image: cimg/node:lts
+#     steps:
+#       - checkout
+#       - run: npm ci
+#       - snyk/scan:
+#           fail-on-issues: false
+#           # monitor-on-build: true
+#           # severity-threshold: high
+#
+# workflows:
+#   build-test-snyk:
+#     jobs:
+#       - snyk-scan
+#
+### From demo video
+# jobs:
+#   build-and-test:
+#     docker:
+#       - image: cimg/openjdk:11.0
+#     steps:
+#       - checkout
+#       - run:
+#           name: Test
+#           command: mvn -B -DskipTests clean package
+#   snyk-scan:
+#     docker:
+#       - image: cimg/openjdk:11.0-node
+#       steps:
+#         - checkout
+#         - run:
+#             name: Install Snyk to HTML
+#             command: npm install --prefix=$HOME/.local -g snyk-to-html
+#         - snyk/scan:
+#             monitor-on-build: false
+#             fail-on-issues: false
+#             command: code test # can run any command such as `iac test` or `container test <image_name:tag>`
+#             additional-arguments: --json-file-output=code-results.json
+        
+#         - run:
+#             name: Generate Snyk HTML report
+#             command: cat code-results.json | snyk-to-html -o code-report.html
+#         - store_artifacts:
+#             path: code-report.html
